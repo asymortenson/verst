@@ -1,11 +1,15 @@
-import { Disclosure, Menu } from "@headlessui/react";
+import { Disclosure } from "@headlessui/react";
 import styled from "styled-components";
 import tw from "twin.macro";
 
-const DropdownMenu = styled.div<{ active: boolean }>`
-  ${({ active }) => active && tw`bg-gray-100`}
+const DropdownMenu = styled.div<{ active: boolean; category: boolean }>`
+  ${({ active, category }) => active && !category && tw`bg-gray-100 w-full`}
+
+  ${({ category }) =>
+    !category
+      ? tw`pl-9`
+      : tw`flex w-[100vw] justify-center lg:justify-start lg:w-[20rem] lg:pl-6  -ml-2`}
   ${tw`
-  pl-9
   py-7
   `}
 
@@ -17,17 +21,19 @@ const DropdownMenu = styled.div<{ active: boolean }>`
   }
 `;
 
-const FirstLine = styled.div`
+const FirstLine = styled.div<{ category?: boolean }>`
+  ${({ category }) => (!category ? tw` mt-1` : tw`mt-3`)}
   ${tw`
   bg-accent
   w-2
-  mt-1
   h-[0.07rem]
   `}
 `;
 
-const SecondLine = styled.div`
-  ${tw`bg-accent w-7   mt-1  h-[0.07rem] bg-opacity-25 mr-3`}
+const SecondLine = styled.div<{ category?: boolean }>`
+  ${({ category }) => (!category ? tw` mt-1` : tw`mt-3`)}
+
+  ${tw`bg-accent w-7   h-[0.07rem] bg-opacity-25 mr-3`}
 `;
 
 const DropdownItem = styled.span`
@@ -37,7 +43,7 @@ const DropdownItem = styled.span`
 `;
 
 const DropdownContainer = styled.div`
-  ${tw`flex items-start flex-col my-3 ml-10 
+  ${tw`flex items-center lg:items-start flex-col my-3  justify-center
   `}
 `;
 
@@ -45,23 +51,28 @@ const LineContainer = styled.div`
   ${tw`flex`}
 `;
 
-const SubDropdownContainer = styled.ul`
-  ${tw`
-  last:border-b-[1px] last:pb-4 border-accent
-  `}
+const SubDropdownContainer = styled.ul<{ category: boolean }>`
+
+${({ category }) =>
+  !category
+    ? tw`
+last:border-b-[1px] last:pb-4 border-accent
+`
+    : tw`
+last:border-b-[1px] last:pb-4 border-accent border-opacity-0 lg:border-opacity-25 w-[16.5rem] lg:w-auto lg:ml-7
+`}
+}
 `;
 
 const SubDropdownItem = styled.li`
   ${tw`
-  flex flex-col items-start
+  flex flex-col items-start lg:first:mt-0 lg:last:mb-0 lg:my-2
   `}
 `;
 
 const SearchListContainer = styled.ul`
   ${tw`
-  
    mt-4 ml-[2rem]`}
-
   li::before {
     content: "⬝";
     font-size: 1rem;
@@ -71,23 +82,23 @@ const SearchListContainer = styled.ul`
 
 export const Dropdown: React.FC<{
   children: React.ReactNode;
-  stoll?: boolean;
-}> = ({ children, stoll }) => {
+  category?: boolean;
+}> = ({ children, category = false }) => {
   return (
     <li>
       <Disclosure>
         {({ open }) => (
-          <>
-            <DropdownMenu active={open}>
+          <div className="flex justify-center items-center flex-col lg:items-start">
+            <DropdownMenu active={open} category={category}>
               <Disclosure.Button className="flex items-center justify-start">
                 {children}
               </Disclosure.Button>
             </DropdownMenu>
-            <Disclosure.Panel>
-              {!stoll ? (
-                <SubDropdownContainer>
+            <Disclosure.Panel className="w-full lg:block flex justify-center">
+              {!category ? (
+                <SubDropdownContainer category={category}>
                   <SubDropdownItem>
-                    <DropdownContainer>
+                    <DropdownContainer className="ml-11">
                       <Disclosure>
                         <Disclosure.Button className="flex items-center justify-start">
                           <LineContainer>
@@ -108,7 +119,7 @@ export const Dropdown: React.FC<{
                     </DropdownContainer>
                   </SubDropdownItem>
                   <SubDropdownItem>
-                    <DropdownContainer>
+                    <DropdownContainer className="ml-11">
                       <Disclosure>
                         <Disclosure.Button className="flex items-center justify-start">
                           <LineContainer>
@@ -130,7 +141,7 @@ export const Dropdown: React.FC<{
                   </SubDropdownItem>
                 </SubDropdownContainer>
               ) : (
-                <SubDropdownContainer>
+                <SubDropdownContainer className="divide-y" category={category}>
                   <SubDropdownItem>
                     <DropdownContainer>
                       <Disclosure>
@@ -139,13 +150,14 @@ export const Dropdown: React.FC<{
                             <FirstLine />
                             <SecondLine />
                           </LineContainer>
-                          <span>По производителю</span>
+                          <span className="text-left">Косилки и плющилки</span>
                         </Disclosure.Button>
-                        <Disclosure.Panel>
-                          <div className="flex">
+
+                        <Disclosure.Panel className="w-full">
+                          <div className="flex w-full">
                             <SearchListContainer>
-                              <li>Case</li>
-                              <li>New Holland</li>
+                              <li>Модели</li>
+                              <li>Модели</li>
                             </SearchListContainer>
                           </div>
                         </Disclosure.Panel>
@@ -155,18 +167,41 @@ export const Dropdown: React.FC<{
                   <SubDropdownItem>
                     <DropdownContainer>
                       <Disclosure>
-                        <Disclosure.Button className="flex items-center justify-start">
+                        <Disclosure.Button className="flex items-start justify-start">
                           <LineContainer>
-                            <FirstLine />
-                            <SecondLine />
+                            <FirstLine category={category} />
+                            <SecondLine category={category} />
                           </LineContainer>
-                          <span>По назначению</span>
+                          <span className="text-left">
+                            Ворошители и валкообращователи
+                          </span>
                         </Disclosure.Button>
-                        <Disclosure.Panel>
+                        <Disclosure.Panel className="w-full">
                           <div className="flex">
                             <SearchListContainer>
-                              <li>Case</li>
-                              <li>New Holland</li>
+                              <li>Модели</li>
+                              <li>Модели</li>
+                            </SearchListContainer>
+                          </div>
+                        </Disclosure.Panel>
+                      </Disclosure>
+                    </DropdownContainer>
+                  </SubDropdownItem>
+                  <SubDropdownItem>
+                    <DropdownContainer>
+                      <Disclosure>
+                        <Disclosure.Button className="flex items-start justify-start">
+                          <LineContainer>
+                            <FirstLine category={category} />
+                            <SecondLine category={category} />
+                          </LineContainer>
+                          <span className="text-left">Пресс подборщики</span>
+                        </Disclosure.Button>
+                        <Disclosure.Panel className="w-full">
+                          <div className="flex">
+                            <SearchListContainer>
+                              <li>Модели</li>
+                              <li>Модели</li>
                             </SearchListContainer>
                           </div>
                         </Disclosure.Panel>
@@ -176,7 +211,7 @@ export const Dropdown: React.FC<{
                 </SubDropdownContainer>
               )}
             </Disclosure.Panel>
-          </>
+          </div>
         )}
       </Disclosure>
     </li>

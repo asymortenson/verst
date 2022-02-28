@@ -1,19 +1,17 @@
-import React, { ReactChildren, ReactChild } from "react";
 import styled from "styled-components";
 import tw from "twin.macro";
 
-interface WrapperProps {
-  children: ReactChild | ReactChildren;
-}
-
 const WrapperComponent = styled.div`
   ${tw`
-  m-auto  
-  max-w-[1920px]
-  font-gotham
+  xl:w-[70vw]
+  xl:max-w-[1400px]
+  xxl:w-[80vw]
+    w-full
+
+  px-3
   `}
 `;
 
-export const Wrapper: React.FC<WrapperProps> = ({ children }) => {
+export const Wrapper: React.FC = ({ children }) => {
   return <WrapperComponent>{children}</WrapperComponent>;
 };

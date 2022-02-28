@@ -3,6 +3,12 @@ import styled from "styled-components";
 import tw from "twin.macro";
 
 const Container = styled.div`
+  ::-webkit-scrollbar {
+    width: 0px;
+    height: 0px;
+  }
+
+  scrollbar-width: none;
   ${tw`
   w-80
   flex

@@ -3,22 +3,25 @@ import tw from "twin.macro";
 
 const NavbarContainer = styled.ul`
   ${tw`
-flex
-justify-between
+  display[none]
+lg:flex
 flex-wrap
+justify-between
+relative
+text-xs
+xl:text-base
 `}
-
   li::before {
     content: "⬝";
     font-size: 1rem;
-    margin-right: 2rem;
   }
 `;
 const NavbarItem = styled.li`
   ${tw`
   text-left
-
   my-5
+  before:mr-[0.3rem]
+xxl:before:mr-16
 `}
 `;
 

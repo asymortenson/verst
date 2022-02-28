@@ -3,23 +3,28 @@ import tw from "twin.macro";
 
 const PartnersContainer = styled.div`
   ${tw`
-flex
-flex-wrap
-justify-between
-w-[70vw]
-max-w-[1440px]
+grid
+grid-gap[0.5rem]
+lg:grid-gap[1.5rem]
+px-3
+grid-template-columns[1fr 1fr]
+grid-template-rows[1fr 1fr]
+lg:grid-template-columns[repeat(auto-fill,minmax(250px, 1fr))]
+xl:w-[70vw]
+xl:max-w-[1400px]
+xxl:w-[80vw]
 `}
 `;
 
 const Logo = styled.div`
   ${tw`
-w-64
 hover:shadow-lg
 px-3
+w-full
+py-12
+lg:py-20
 flex
 items-center
-py-20
-my-2
 bg-white
 cursor-pointer
 `}
@@ -51,13 +56,7 @@ export const Partners = () => {
           <img src="./assets/logos/seppi-cmyk.jpg" />
         </Logo>
         <Logo>
-          <img src="./assets/logos/stemplinger.png" />
-        </Logo>
-        <Logo>
-          <img src="./assets/logos/stemplinger.png" />
-        </Logo>
-        <Logo>
-          <img src="./assets/logos/stemplinger.png" />
+          <img src="./assets/logos/seppi-cmyk.jpg" />
         </Logo>
       </PartnersContainer>
     </div>

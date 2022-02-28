@@ -3,9 +3,11 @@ import styled from "styled-components";
 import tw from "twin.macro";
 const HeroContainer = styled.div`
   ${tw`
-mt-6
+lg:mt-6
 overflow-hidden
 relative
+h-[70vh]
+lg:h-auto
 `}
 `;
 
@@ -26,12 +28,13 @@ h-full
 `;
 
 const TopLine = styled.div`
-  transform: translate(150px, -102px) rotate(45deg);
+  transform: translate(110px, -102px) rotate(35deg);
   background: rgb(196, 154, 119);
 
   ${tw`
 w-[1px]
 opacity-50
+
 z-30
 h-[26.7rem]
 absolute
@@ -39,7 +42,7 @@ absolute
 `;
 
 const SmallLine = styled.div`
-  transform: translate(150px, 96px) rotate(45deg);
+  transform: translate(110px, 96px) rotate(35deg);
   background: rgb(196, 154, 119);
 
   ${tw`
@@ -77,21 +80,54 @@ absolute
 `;
 
 const RequestContainer = styled.div`
-  ${tw`absolute w-full h-full`}
+  ${tw`absolute w-full  h-full`}
 `;
 
 const MainBlock = styled.div`
   ${tw`
-flex h-full ml-24 justify-center flex-col`}
+flex h-full relative
+ lg:ml-24 items-center lg:items-start justify-center flex-col`}
 `;
 
 const BlockHeader = styled.h1`
   ${tw`
-text-5xl
-mt-8
-w-5/12
-leading-tight
-mb-20
+lg:text-5xl
+lg:text-left
+text-3xl
+
+relative
+
+lg:before:hidden
+lg:after:hidden
+
+before:bg-accent
+before:w-[10rem]
+before:h-[1px]
+before:absolute
+before:-bottom-8
+before:right-0
+before:left-0
+before:ml-auto
+before:mr-auto
+
+after:bg-accent
+after:w-[21rem]
+after:h-[1px]
+after:absolute
+after:-bottom-8
+after:opacity-50
+after:right-0
+after:left-0
+after:ml-auto
+after:mr-auto
+
+
+lg:mt-12
+w-9/12
+lg:leading-[3rem]
+text-center
+lg:w-5/12
+mb-28
 font-weight[800]
 text-white
 uppercase
@@ -107,6 +143,8 @@ const HeaderLine = styled.div`
 w-[1px]
 opacity-40
 z-30
+display[none]
+lg:block
 h-[50rem]
 absolute
 `}
@@ -119,6 +157,8 @@ const HeaderAccentLine = styled.div`
 
   ${tw`
 w-[1px]
+display[none]
+lg:block
 z-30
 h-[10rem]
 absolute
@@ -138,10 +178,15 @@ export const Hero = () => {
           <HeaderAccentLine />
           <HeaderLine />
           <BlockHeader>Навесное оборудование</BlockHeader>
-          <Button className="h-14 w-52">Заказать звонок</Button>
+          <Button className="h-16 text-xl lg:text-base lg:h-14 w-[70vw] lg:w-52">
+            Заказать звонок
+          </Button>
         </MainBlock>
       </RequestContainer>
-      <img className="" src="./assets/images/hero-tractor.png" />
+      <img
+        className="object-cover object-right   h-full lg:object-contain"
+        src="./assets/images/hero-tractor.png"
+      />
     </HeroContainer>
   );
 };
